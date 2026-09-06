@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Poppins', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --color-brand-deep: #0B2A4A;
+  --color-brand-deep-hover: #12395E;
+  --color-brand-light: #3FA9DD;
+  --color-brand-sky: #7EC8E3;
+  --color-brand-green: #3F4B33;
+  --color-brand-green-light: #556B4A;
+  --color-brand-gold: #C7A15A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #4B5563;
+  background-color: #F8FAFC;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Pause animation on hover */
+.pause-on-hover:hover {
+  animation-play-state: paused !important;
+}
+
+@keyframes marqueeUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-marquee-up {
+  animation: marqueeUp 24s linear infinite;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-left {
+  animation: marqueeLeft 20s linear infinite;
+}
+

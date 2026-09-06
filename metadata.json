@@ -1,0 +1,6 @@
+{
+  "name": "IAN'S TRAVEL & TOURS",
+  "description": "Book domestic and international flights, explore Rwanda and East Africa, arrange hotels, visa assistance, airport transfers and customized travel experiences with IAN'S Travel & Tours.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
