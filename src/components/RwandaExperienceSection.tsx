@@ -1,54 +1,90 @@
-import React, { useState } from 'react';
-import { Sparkles, ArrowRight, CheckCircle2, Mountain, Trees, Compass } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  Mountain,
+  Trees,
+  Compass,
+} from "lucide-react";
 
 interface RwandaExperienceSectionProps {
   onExploreRwandaClick: () => void;
 }
 
-export const RwandaExperienceSection: React.FC<RwandaExperienceSectionProps> = ({
-  onExploreRwandaClick,
-}) => {
-  const [activeTab, setActiveTab] = useState<'volcanoes' | 'akagera' | 'kivu' | 'nyungwe'>('volcanoes');
+export const RwandaExperienceSection: React.FC<
+  RwandaExperienceSectionProps
+> = ({ onExploreRwandaClick }) => {
+  const [activeTab, setActiveTab] = useState<
+    "volcanoes" | "akagera" | "kivu" | "nyungwe"
+  >("volcanoes");
 
   const rwandaHighlights = {
     volcanoes: {
-      title: 'Volcanoes National Park & Gorillas',
-      tagline: 'Mist, bamboo forests & rare mountain primates',
-      desc: 'Trek with certified Rwanda Development Board (RDB) rangers into the lush Virunga slopes. IAN’S assists with official permit logistics, luxury base lodges in Musanze, and seamless private transfers.',
-      image: 'https://images.unsplash.com/photo-1547970810-dc1eac37d174?auto=format&fit=crop&w=1200&q=80',
-      badge: 'Iconic Wildlife',
-      features: ['Official permit securing assistance', 'Golden monkey tracking option', 'Luxury eco-lodge bookings', 'Musanze cultural encounters'],
+      title: "Volcanoes National Park & Gorillas",
+      tagline: "Mist, bamboo forests & rare mountain primates",
+      desc: "Trek with certified Rwanda Development Board (RDB) rangers into the lush Virunga slopes. IAN’S assists with official permit logistics, luxury base lodges in Musanze, and seamless private transfers.",
+      // image:"https://images.unsplash.com/photo-1547970810-dc1eac37d174?auto=format&fit=crop&w=1200&q=80",
+      image: "/images/gorilaVisit.jpg",
+      badge: "Iconic Wildlife",
+      features: [
+        "Official permit securing assistance",
+        "Golden monkey tracking option",
+        "Luxury eco-lodge bookings",
+        "Musanze cultural encounters",
+      ],
     },
     akagera: {
-      title: 'Akagera Savanna & Lake Safari',
-      tagline: 'Central Africa’s largest protected wetland',
-      desc: 'Experience classic African savanna landscapes alive with lions, rhinos, giraffes, zebras, and vast herds of elephants, paired with a peaceful boat cruise on Lake Ihema.',
-      image: 'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1200&q=80',
-      badge: 'The Big Five',
-      features: ['4x4 Safari vehicle with pop-up roof', 'Lake Ihema sunset boat cruise', 'Night safari game drives', 'Campfire lodge hospitality'],
+      title: "Akagera Savanna & Lake Safari",
+      tagline: "Central Africa’s largest protected wetland",
+      desc: "Experience classic African savanna landscapes alive with lions, rhinos, giraffes, zebras, and vast herds of elephants, paired with a peaceful boat cruise on Lake Ihema.",
+      // image:"https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1200&q=80",
+      image: "/images/featured3.jpg",
+      badge: "The Big Five",
+      features: [
+        "4x4 Safari vehicle with pop-up roof",
+        "Lake Ihema sunset boat cruise",
+        "Night safari game drives",
+        "Campfire lodge hospitality",
+      ],
     },
     kivu: {
-      title: 'Lake Kivu & Rubavu Shoreline',
-      tagline: 'Tranquil inland sea surrounded by emerald hills',
-      desc: 'Relax on clean freshwater beaches, paddle along the peaceful shoreline by kayak, discover the Congo Nile Trail, and experience rich coffee harvesting traditions.',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
-      badge: 'Lakeside Serenity',
-      features: ['Sunset island kayaking', 'Specialty Rwandan coffee tasting', 'Resort relaxation in Gisenyi/Rubavu', 'Fresh local gastronomy'],
+      title: "Lake Kivu & Rubavu Shoreline",
+      tagline: "Tranquil inland sea surrounded by emerald hills",
+      desc: "Relax on clean freshwater beaches, paddle along the peaceful shoreline by kayak, discover the Congo Nile Trail, and experience rich coffee harvesting traditions.",
+      // image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+      image: "/images/lakeKivu.jpg",
+      badge: "Lakeside Serenity",
+      features: [
+        "Sunset island kayaking",
+        "Specialty Rwandan coffee tasting",
+        "Resort relaxation in Gisenyi/Rubavu",
+        "Fresh local gastronomy",
+      ],
     },
     nyungwe: {
-      title: 'Nyungwe Rainforest & Canopy Walkway',
-      tagline: 'Ancient montane rainforest & chimpanzee habitat',
-      desc: 'Suspended 70 meters in the clouds on East Africa’s canopy walkway. Walk among giant tree ferns, observe troops of chimpanzees and colobus monkeys, and hike misty waterfalls.',
-      image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
-      badge: 'Highland Canopy',
-      features: ['Suspension canopy walkway', 'Chimpanzee tracking permits', 'Kamiranzovu swamp trail', 'Tea estate plantation tours'],
+      title: "Nyungwe Rainforest & Canopy Walkway",
+      tagline: "Ancient montane rainforest & chimpanzee habitat",
+      desc: "Suspended 70 meters in the clouds on East Africa’s canopy walkway. Walk among giant tree ferns, observe troops of chimpanzees and colobus monkeys, and hike misty waterfalls.",
+      // image:https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80",
+      image: "https://rwandaecocompany.com/images/blog/nyungwe-forests.jpg",
+      badge: "Highland Canopy",
+      features: [
+        "Suspension canopy walkway",
+        "Chimpanzee tracking permits",
+        "Kamiranzovu swamp trail",
+        "Tea estate plantation tours",
+      ],
     },
   };
 
   const current = rwandaHighlights[activeTab];
 
   return (
-    <section id="rwanda" className="py-24 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC]">
+    <section
+      id="rwanda"
+      className="py-24 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
@@ -60,51 +96,53 @@ export const RwandaExperienceSection: React.FC<RwandaExperienceSectionProps> = (
             Discover Rwanda differently.
           </h2>
           <p className="text-base sm:text-lg text-slate-600 mt-3 leading-relaxed">
-            From the clean streets of Kigali to misty volcanic peaks, ancient rainforests, and sunlit lakes — experience bespoke Rwandan journeys shaped around your comfort.
+            From the clean streets of Kigali to misty volcanic peaks, ancient
+            rainforests, and sunlit lakes — experience bespoke Rwandan journeys
+            shaped around your comfort.
           </p>
         </div>
 
         {/* Interactive Tab Switcher */}
         <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 pb-3">
           <button
-            onClick={() => setActiveTab('volcanoes')}
+            onClick={() => setActiveTab("volcanoes")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'volcanoes'
-                ? 'bg-[#0B2A4A] text-white shadow-sm'
-                : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              activeTab === "volcanoes"
+                ? "bg-[#0B2A4A] text-white shadow-sm"
+                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
             }`}
           >
             <Mountain className="w-3.5 h-3.5" />
             <span>Volcanoes & Gorillas</span>
           </button>
           <button
-            onClick={() => setActiveTab('akagera')}
+            onClick={() => setActiveTab("akagera")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'akagera'
-                ? 'bg-[#0B2A4A] text-white shadow-sm'
-                : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              activeTab === "akagera"
+                ? "bg-[#0B2A4A] text-white shadow-sm"
+                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
             }`}
           >
             <Compass className="w-3.5 h-3.5" />
             <span>Akagera Big Five</span>
           </button>
           <button
-            onClick={() => setActiveTab('kivu')}
+            onClick={() => setActiveTab("kivu")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'kivu'
-                ? 'bg-[#0B2A4A] text-white shadow-sm'
-                : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              activeTab === "kivu"
+                ? "bg-[#0B2A4A] text-white shadow-sm"
+                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Lake Kivu Shoreline</span>
           </button>
           <button
-            onClick={() => setActiveTab('nyungwe')}
+            onClick={() => setActiveTab("nyungwe")}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-              activeTab === 'nyungwe'
-                ? 'bg-[#0B2A4A] text-white shadow-sm'
-                : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              activeTab === "nyungwe"
+                ? "bg-[#0B2A4A] text-white shadow-sm"
+                : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
             }`}
           >
             <Trees className="w-3.5 h-3.5" />
@@ -134,7 +172,10 @@ export const RwandaExperienceSection: React.FC<RwandaExperienceSectionProps> = (
                 {/* Features list */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {current.features.map((feat, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-slate-200">
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 text-xs text-slate-200"
+                    >
                       <CheckCircle2 className="w-4 h-4 text-[#7EC8E3] flex-shrink-0" />
                       <span>{feat}</span>
                     </div>
@@ -151,7 +192,9 @@ export const RwandaExperienceSection: React.FC<RwandaExperienceSectionProps> = (
                   <span>Explore Rwanda With Us</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
-                <span className="text-xs text-slate-400">Custom dates & group sizes</span>
+                <span className="text-xs text-slate-400">
+                  Custom dates & group sizes
+                </span>
               </div>
             </div>
 

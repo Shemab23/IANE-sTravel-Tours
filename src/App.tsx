@@ -1,33 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { TrustSection } from './components/TrustSection';
-import { ServicesSection } from './components/ServicesSection';
-import { FlightEnquirySection } from './components/FlightEnquirySection';
-import { DestinationsSection } from './components/DestinationsSection';
-import { RwandaExperienceSection } from './components/RwandaExperienceSection';
-import { ToursSection } from './components/ToursSection';
-import { HowItWorksSection } from './components/HowItWorksSection';
-import { TestimonialsSection } from './components/TestimonialsSection';
-import { BrandMomentSection } from './components/BrandMomentSection';
-import { FinalCTASection } from './components/FinalCTASection';
-import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
-import { CertificateAwardedSection } from './components/CertificateAwardedSection';
-import { FAQSection } from './components/FAQSection';
-import { Lock } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Navbar } from "./components/Navbar";
+import { Hero } from "./components/Hero";
+import { TrustSection } from "./components/TrustSection";
+import { ServicesSection } from "./components/ServicesSection";
+import { FlightEnquirySection } from "./components/FlightEnquirySection";
+import { DestinationsSection } from "./components/DestinationsSection";
+import { RwandaExperienceSection } from "./components/RwandaExperienceSection";
+import { ToursSection } from "./components/ToursSection";
+import { HowItWorksSection } from "./components/HowItWorksSection";
+import { TestimonialsSection } from "./components/TestimonialsSection";
+import { BrandMomentSection } from "./components/BrandMomentSection";
+import { FinalCTASection } from "./components/FinalCTASection";
+import { ContactSection } from "./components/ContactSection";
+import { Footer } from "./components/Footer";
+import { CertificateAwardedSection } from "./components/CertificateAwardedSection";
+import { FAQSection } from "./components/FAQSection";
 
-// Modals
-import { AdminPasswordModal } from './components/AdminPasswordModal';
-import { ServiceDetailModal } from './components/ServiceDetailModal';
-import { QuoteRequestModal } from './components/QuoteRequestModal';
+// Extracted pieces
+import { RevealSection, RevealTransition } from "./components/Revealsection";
+import { AdminEntranceButton } from "./components/Adminentrancebutton";
+import { AppModals } from "./components/Appmodals";
 
 // Admin Panel
-import { AdminDashboard } from './admin/AdminDashboard';
+import { AdminDashboard } from "./admin/AdminDashboard";
 
 // Data & Storage
-import { StorageService } from './data/storage';
-import { DestinationItem, ServiceItem, TestimonialItem, TourItem } from './types';
+import { StorageService } from "./data/storage";
+import {
+  DestinationItem,
+  ServiceItem,
+  TestimonialItem,
+  TourItem,
+} from "./types";
 
 export default function App() {
   // App views
@@ -35,10 +39,13 @@ export default function App() {
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
   // Modals state
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(
+    null,
+  );
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [quoteDefaultService, setQuoteDefaultService] = useState('Tailored Tour');
-  const [quoteDefaultDestination, setQuoteDefaultDestination] = useState('');
+  const [quoteDefaultService, setQuoteDefaultService] =
+    useState("Tailored Tour");
+  const [quoteDefaultDestination, setQuoteDefaultDestination] = useState("");
 
   // Live catalogs from storage layer
   const [services, setServices] = useState<ServiceItem[]>([]);
@@ -46,24 +53,15 @@ export default function App() {
   const [tours, setTours] = useState<TourItem[]>([]);
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>([]);
 
-  // Load initial data
+  // Load initial data + admin route handling
   useEffect(() => {
     setServices(StorageService.getServices());
     setDestinations(StorageService.getDestinations());
     setTours(StorageService.getTours());
     setTestimonials(StorageService.getTestimonials());
 
-    // Check if URL hash is #/manage or if admin session exists
-    if (window.location.hash === '#/manage' || StorageService.isAdminAuthenticated()) {
-      if (StorageService.isAdminAuthenticated()) {
-        setIsAdminView(true);
-      } else {
-        setIsAdminModalOpen(true);
-      }
-    }
-
-    const handleHashChange = () => {
-      if (window.location.hash === '#/manage') {
+    const syncAdminRoute = () => {
+      if (window.location.hash === "#/manage") {
         if (StorageService.isAdminAuthenticated()) {
           setIsAdminView(true);
         } else {
@@ -72,161 +70,217 @@ export default function App() {
       }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    syncAdminRoute();
+    window.addEventListener("hashchange", syncAdminRoute);
+    return () => window.removeEventListener("hashchange", syncAdminRoute);
   }, []);
 
-  // Admin Auth handlers
+  // Admin auth handlers
   const handleAdminSuccess = () => {
     setIsAdminModalOpen(false);
     setIsAdminView(true);
-    window.location.hash = '#/manage';
+    window.location.hash = "#/manage";
   };
 
   const handleAdminLogout = () => {
     StorageService.clearAdminSession();
     setIsAdminView(false);
-    window.location.hash = '';
+    window.location.hash = "";
   };
 
   // Quote modal trigger helpers
-  const handleOpenGeneralQuote = (serviceName = 'Tailored Tour', destination = '') => {
+  const handleOpenGeneralQuote = (
+    serviceName = "Tailored Tour",
+    destination = "",
+  ) => {
     setQuoteDefaultService(serviceName);
     setQuoteDefaultDestination(destination);
     setIsQuoteModalOpen(true);
   };
 
-  // Service modal to quote modal flow
   const handleServiceRequestQuote = (service: ServiceItem) => {
     setSelectedService(null);
     handleOpenGeneralQuote(service.title);
   };
 
-  // If currently in Admin view, render AdminDashboard
   if (isAdminView) {
     return <AdminDashboard onLogout={handleAdminLogout} />;
   }
 
-  return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-[#7EC8E3]/30 selection:text-[#0B2A4A] flex flex-col font-sans">
-      {/* Discreet Navigation Bar */}
-      <Navbar
-        onAdminTrigger={() => setIsAdminModalOpen(true)}
-        onRequestQuote={() => handleOpenGeneralQuote('Tailored Tour')}
-      />
-
-      {/* Main Content Sections */}
-      <main className="flex-1">
-        {/* Asymmetric Split Hero with auto-scrolling service gallery */}
+  // ---------------------------------------------------------------------
+  // THIS is "the outer function" you keep sections in: a plain array,
+  // declared inside App (it needs closures over state/handlers above).
+  // Add, remove, or reorder the page by editing this list — nothing else
+  // in the JSX below needs to change.
+  //
+  // Each entry also picks a `transition` (see StackedSection) so the join
+  // effect isn't identical everywhere — mix them based on the section's
+  // content and how long someone will likely dwell on it.
+  // ---------------------------------------------------------------------
+  // `id` values below match the Navbar's href="#..." links exactly.
+  // If a section isn't in the nav, it still gets an id for future deep-links.
+  const mainSections: {
+    key: string;
+    id: string;
+    node: React.ReactNode;
+    transition: RevealTransition;
+  }[] = [
+    {
+      key: "hero",
+      id: "hero",
+      transition: "zoom-out",
+      node: (
         <Hero
-          onSelectService={(service) => setSelectedService(service)}
-          onRequestQuote={() => handleOpenGeneralQuote('Tailored Tour')}
+          onSelectServiceCard={(service: ServiceItem) =>
+            setSelectedService(service)
+          }
+          onRequestQuote={() => handleOpenGeneralQuote("Tailored Tour")}
+          onPlanTripClick={() => alert("Coming soon!..")}
         />
-
-        {/* 4 Pillars of Trust Section */}
-        <TrustSection />
-
-        {/* Certificate Awarded & 4th Year Milestone Section */}
-        <CertificateAwardedSection />
-
-        {/* 6 Core Services Grid Section */}
+      ),
+    },
+    {
+      key: "services",
+      id: "services",
+      transition: "zoom-out",
+      node: (
         <ServicesSection
           services={services}
           onSelectService={(service) => setSelectedService(service)}
         />
-
-        {/* Dedicated Flight Enquiry Section with WhatsApp Handoff */}
-        <FlightEnquirySection />
-
-        {/* Destinations Showcase Section */}
+      ),
+    },
+    {
+      key: "certificate",
+      id: "credentials",
+      transition: "blur-in",
+      node: <CertificateAwardedSection />,
+    },
+    {
+      key: "flight-enquiry",
+      id: "flights",
+      transition: "slide-left",
+      node: <FlightEnquirySection />,
+    },
+    {
+      key: "destinations",
+      id: "destinations",
+      transition: "blur-in",
+      node: (
         <DestinationsSection
           destinations={destinations}
           onRequestDestinationQuote={(destName) =>
-            handleOpenGeneralQuote('Tailored Tour', destName)
+            handleOpenGeneralQuote("Tailored Tour", destName)
           }
         />
-
-        {/* Rwanda Experience Spotlight Section */}
+      ),
+    },
+    {
+      key: "rwanda-experience",
+      id: "rwanda",
+      transition: "zoom-out",
+      node: (
         <RwandaExperienceSection
           onExploreRwandaClick={() =>
-            handleOpenGeneralQuote('Rwanda Guided Safari', 'Volcanoes / Rwanda')
+            handleOpenGeneralQuote("Rwanda Guided Safari", "Volcanoes / Rwanda")
           }
         />
-
-        {/* Tailored Tours Section */}
+      ),
+    },
+    {
+      key: "tours",
+      id: "tours",
+      transition: "slide-left",
+      node: (
         <ToursSection
           tours={tours}
           onPlanCustomTripClick={(tourTitle) =>
-            handleOpenGeneralQuote(tourTitle ? `Custom Itinerary: ${tourTitle}` : 'Custom Tour')
+            handleOpenGeneralQuote(
+              tourTitle ? `Custom Itinerary: ${tourTitle}` : "Custom Tour",
+            )
           }
         />
-
-        {/* How It Works 4-Step Process Section */}
-        <HowItWorksSection />
-
-        {/* Frequently Asked Questions Section (Travel Queries & Logistics) */}
-        <FAQSection />
-
-        {/* Genuine Testimonials Section */}
+      ),
+    },
+    {
+      key: "how-it-works",
+      id: "how-it-works",
+      transition: "blur-in",
+      node: <HowItWorksSection />,
+    },
+    { key: "faq", id: "faq", transition: "zoom-out", node: <FAQSection /> },
+    {
+      key: "testimonials",
+      id: "testimonials",
+      transition: "slide-left",
+      node: (
         <TestimonialsSection
           testimonials={testimonials}
-          onRequestQuote={() => handleOpenGeneralQuote('Tailored Tour')}
+          onRequestQuote={() => handleOpenGeneralQuote("Tailored Tour")}
         />
-
-        {/* High-contrast Deep Blue Brand Moment Section: Conquer the world with us! */}
-        <BrandMomentSection />
-
-        {/* Final Conversion CTA Section */}
+      ),
+    },
+    {
+      key: "brand-moment",
+      id: "brand-moment",
+      transition: "blur-in",
+      node: <BrandMomentSection />,
+    },
+    {
+      key: "final-cta",
+      id: "final-cta",
+      transition: "zoom-out",
+      node: (
         <FinalCTASection
-          onOpenQuoteModal={() => handleOpenGeneralQuote('Tailored Tour')}
+          onOpenQuoteModal={() => handleOpenGeneralQuote("Tailored Tour")}
         />
+      ),
+    },
+    {
+      key: "contact",
+      id: "contact",
+      transition: "slide-left",
+      node: <ContactSection />,
+    },
+  ];
 
-        {/* Kigali Office & Direct Contact Section */}
-        <ContactSection />
+  return (
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-[#7EC8E3]/30 selection:text-[#0B2A4A] flex flex-col font-sans">
+      {/* Navbar sits above all content, no z-index coordination needed anymore */}
+      <Navbar
+        onAdminTrigger={() => setIsAdminModalOpen(true)}
+        onRequestQuote={() => handleOpenGeneralQuote("Tailored Tour")}
+      />
+
+      <main className="flex-1">
+        {mainSections.map(({ key, id, node, transition }) => (
+          <RevealSection key={key} id={id} transition={transition}>
+            {node}
+          </RevealSection>
+        ))}
       </main>
 
-      {/* Clean Public Footer */}
+      {/* Footer scrolls normally beneath the last section */}
       <Footer />
 
-      {/* Floating Quick Admin Portal Entrance Button */}
-      <button
-        id="floating-admin-entrance-btn"
-        onClick={() => setIsAdminModalOpen(true)}
-        aria-label="Admin Entrance"
-        title="Administrator Portal Entrance"
-        className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 bg-[#0B2A4A] hover:bg-[#12395E] text-white rounded-2xl shadow-xl border border-[#C7A15A]/40 flex items-center gap-2 text-xs font-bold transition-all hover:scale-105 active:scale-95 group"
-      >
-        <Lock className="w-3.5 h-3.5 text-[#C7A15A] group-hover:rotate-12 transition-transform" />
-        <span className="tracking-wide">Admin Entrance</span>
-      </button>
+      <AdminEntranceButton onClick={() => setIsAdminModalOpen(true)} />
 
-      {/* MODALS */}
-      {/* 1. Discreet Password Modal for Administrator */}
-      <AdminPasswordModal
-        isOpen={isAdminModalOpen}
-        onClose={() => {
+      <AppModals
+        isAdminModalOpen={isAdminModalOpen}
+        onCloseAdminModal={() => {
           setIsAdminModalOpen(false);
-          if (window.location.hash === '#/manage') {
-            window.location.hash = '';
+          if (window.location.hash === "#/manage") {
+            window.location.hash = "";
           }
         }}
-        onSuccess={handleAdminSuccess}
-      />
-
-      {/* 2. Service Deep Dive & Regulatory Disclaimers Modal */}
-      <ServiceDetailModal
-        service={selectedService}
-        isOpen={!!selectedService}
-        onClose={() => setSelectedService(null)}
-        onRequestQuote={handleServiceRequestQuote}
-      />
-
-      {/* 3. Quote Request Modal */}
-      <QuoteRequestModal
-        isOpen={isQuoteModalOpen}
-        onClose={() => setIsQuoteModalOpen(false)}
-        defaultService={quoteDefaultService}
-        defaultDestination={quoteDefaultDestination}
+        onAdminSuccess={handleAdminSuccess}
+        selectedService={selectedService}
+        onCloseServiceModal={() => setSelectedService(null)}
+        onServiceRequestQuote={handleServiceRequestQuote}
+        isQuoteModalOpen={isQuoteModalOpen}
+        onCloseQuoteModal={() => setIsQuoteModalOpen(false)}
+        quoteDefaultService={quoteDefaultService}
+        quoteDefaultDestination={quoteDefaultDestination}
       />
     </div>
   );

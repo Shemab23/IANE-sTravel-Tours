@@ -1,20 +1,27 @@
-import React from 'react';
-import { BrandLogo } from './BrandLogo';
-import { MapPin, Phone, Mail, MessageCircle, Instagram, ArrowUp } from 'lucide-react';
-import { initialBusinessInfo, initialServices } from '../data/mockData';
-import { buildWhatsAppUrl } from '../data/storage';
+import React from "react";
+import { BrandLogo } from "./BrandLogo";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  MessageCircle,
+  Instagram,
+  ArrowUp,
+} from "lucide-react";
+import { initialBusinessInfo, initialServices } from "../data/mockData";
+import { buildWhatsAppUrl } from "../data/storage";
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleWhatsApp = () => {
     const url = buildWhatsAppUrl(
       initialBusinessInfo.whatsappPrimary,
-      "Hello IAN'S Travel & Tours, I am reaching out from your website."
+      "Hello IAN'S Travel & Tours, I am reaching out from your website.",
     );
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -23,9 +30,11 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
           {/* Col 1: Brand & Slogan */}
           <div className="lg:col-span-4 space-y-4">
-            <BrandLogo variant="light" size="lg" showSlogan={true} />
+            <BrandLogo variant="light" size="lg" />
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Conquer the world with us! Dedicated to personal care, reliable flight options, tailored Rwanda and East Africa tours, hotel reservations, and visa guidance.
+              Conquer the world with us! Dedicated to personal care, reliable
+              flight options, tailored Rwanda and East Africa tours, hotel
+              reservations, and visa guidance.
             </p>
 
             <div className="pt-2">
@@ -68,12 +77,18 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#services" className="hover:text-white transition-colors">
+                <a
+                  href="#services"
+                  className="hover:text-white transition-colors"
+                >
                   Our Services
                 </a>
               </li>
               <li>
-                <a href="#flights" className="hover:text-white transition-colors">
+                <a
+                  href="#flights"
+                  className="hover:text-white transition-colors"
+                >
                   Flight Options
                 </a>
               </li>
@@ -83,17 +98,26 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#destinations" className="hover:text-white transition-colors">
+                <a
+                  href="#destinations"
+                  className="hover:text-white transition-colors"
+                >
                   Destinations
                 </a>
               </li>
               <li>
-                <a href="#rwanda" className="hover:text-white transition-colors">
+                <a
+                  href="#rwanda"
+                  className="hover:text-white transition-colors"
+                >
                   Rwanda Experience
                 </a>
               </li>
               <li>
-                <a href="#credentials" className="hover:text-white transition-colors">
+                <a
+                  href="#credentials"
+                  className="hover:text-white transition-colors"
+                >
                   Credentials & 4th Year
                 </a>
               </li>
@@ -103,7 +127,10 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">
+                <a
+                  href="#contact"
+                  className="hover:text-white transition-colors"
+                >
                   Contact & Office
                 </a>
               </li>
@@ -118,7 +145,10 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs">
               {initialServices.map((s) => (
                 <li key={s.id}>
-                  <a href="#services" className="hover:text-[#7EC8E3] transition-colors">
+                  <a
+                    href="#services"
+                    className="hover:text-[#7EC8E3] transition-colors"
+                  >
                     {s.title}
                   </a>
                 </li>
@@ -138,17 +168,26 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#7EC8E3] flex-shrink-0" />
-                <a href="tel:+250783553278" className="hover:text-white transition-colors">
+                <a
+                  href="tel:+250783553278"
+                  className="hover:text-white transition-colors"
+                >
                   +250 783 553 278
                 </a>
                 <span>·</span>
-                <a href="tel:+250788724724" className="hover:text-white transition-colors">
+                <a
+                  href="tel:+250788724724"
+                  className="hover:text-white transition-colors"
+                >
                   +250 788 724 724
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#7EC8E3] flex-shrink-0" />
-                <a href="mailto:ianestraveltours@gmail.com" className="hover:text-white transition-colors truncate">
+                <a
+                  href="mailto:ianestraveltours@gmail.com"
+                  className="hover:text-white transition-colors truncate"
+                >
                   {initialBusinessInfo.email}
                 </a>
               </div>
@@ -162,7 +201,8 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar (Strictly no admin or login link per Specification §22) */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            © {new Date().getFullYear()} IAN'S TRAVEL & TOURS. All rights reserved. Registered in Rwanda.
+            © {new Date().getFullYear()} IAN'S TRAVEL & TOURS. All rights
+            reserved. Registered in Rwanda.
           </p>
 
           <button

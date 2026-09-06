@@ -1,76 +1,84 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: 'Poppins', sans-serif;
-  --font-sans: 'Inter', sans-serif;
-  --color-brand-deep: #0B2A4A;
-  --color-brand-deep-hover: #12395E;
-  --color-brand-light: #3FA9DD;
-  --color-brand-sky: #7EC8E3;
-  --color-brand-green: #3F4B33;
-  --color-brand-green-light: #556B4A;
-  --color-brand-gold: #C7A15A;
+  /* Typography Configuration */
+  --font-heading: "Poppins", sans-serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Theme Palette Customizations */
+  --color-brand-deep: #0b2a4a;
+  --color-brand-deep-hover: #12395e;
+  --color-brand-light: #3fa9dd;
+  --color-brand-sky: #7ec8e3;
+  --color-brand-green: #3f4b33;
+  --color-brand-green-light: #556b4a;
+  --color-brand-gold: #c7a15a;
+
+  /* Keyframe Integrations (V4 Native Specification) */
+  --animate-marquee-up: marqueeUp 24s linear infinite;
+  --animate-marquee-left: marqueeLeft 20s linear infinite;
+
+  @keyframes marqueeUp {
+    0% {
+      transform: translateY(0%);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+  @keyframes marqueeLeft {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
 
+/* ==========================================
+   BASE STYLES & ELEMENT OVERRIDES
+   ========================================== */
 html {
   scroll-behavior: smooth;
+  @apply font-sans;
 }
 
 body {
-  font-family: var(--font-sans);
-  color: #4B5563;
-  background-color: #F8FAFC;
   overflow-x: hidden;
+  @apply bg-slate-50 text-gray-600; /* Replaces manual #F8FAFC and #4B5563 hex mappings */
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-heading;
 }
 
-/* Custom scrollbar */
+/* Global Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  @apply bg-slate-100;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
   border-radius: 4px;
+  @apply bg-slate-300;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  @apply bg-slate-400;
 }
 
-/* Pause animation on hover */
-.pause-on-hover:hover {
-  animation-play-state: paused !important;
-}
-
-@keyframes marqueeUp {
-  0% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(-50%);
+/* ==========================================
+   UTILITIES & EXTENSIONS
+   ========================================== */
+@utility pause-on-hover {
+  &:hover {
+    animation-play-state: paused !important;
   }
 }
-
-.animate-marquee-up {
-  animation: marqueeUp 24s linear infinite;
-}
-
-@keyframes marqueeLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee-left {
-  animation: marqueeLeft 20s linear infinite;
-}
-

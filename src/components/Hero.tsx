@@ -1,11 +1,19 @@
-import React from 'react';
-import { MessageCircle, Compass, ArrowRight, ShieldCheck, Check } from 'lucide-react';
-import { initialBusinessInfo } from '../data/mockData';
-import { buildWhatsAppUrl } from '../data/storage';
+import React from "react";
+import {
+  MessageCircle,
+  Compass,
+  ArrowRight,
+  ShieldCheck,
+  Check,
+} from "lucide-react";
+import { initialBusinessInfo } from "../data/mockData";
+import { buildWhatsAppUrl } from "../data/storage";
+import { ServiceItem } from "../types";
 
 interface HeroProps {
   onPlanTripClick: () => void;
-  onSelectServiceCard?: (serviceId: string) => void;
+  onSelectServiceCard?: (serviceId: ServiceItem) => void;
+  onRequestQuote?: () => void;
 }
 
 interface ServiceCard {
@@ -16,44 +24,51 @@ interface ServiceCard {
   tag: string;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onPlanTripClick, onSelectServiceCard }) => {
+export const Hero: React.FC<HeroProps> = ({
+  onPlanTripClick,
+  onSelectServiceCard,
+}) => {
   const serviceCards: ServiceCard[] = [
     {
-      hook: 'Arrive',
-      label: 'Airport Transfers & Chauffeur',
-      tag: 'Kigali International (KGL)',
-      image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80',
-      alt: 'Professional airport pickup transfer in Rwanda',
+      hook: "Arrive",
+      label: "Airport Transfers & Chauffeur",
+      tag: "Kigali International (KGL)",
+      // image:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80",
+      image: "/images/arrive.jpg",
+      alt: "Professional airport pickup transfer in Rwanda",
     },
     {
-      hook: 'Explore',
-      label: 'Guided Tours & Safaris',
-      tag: 'Volcanoes · Akagera · Kivu',
-      image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80',
-      alt: 'Travelers exploring nature and wildlife safari in Rwanda',
+      hook: "Explore",
+      label: "Guided Tours & Safaris",
+      tag: "Volcanoes · Akagera · Kivu",
+      // image:"https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80",
+      image: "/images/visit.png",
+      alt: "Travelers exploring nature and wildlife safari in Rwanda",
     },
     {
-      hook: 'Fly',
-      label: 'Domestic & International Flights',
-      tag: 'Worldwide Routes & Fares',
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
-      alt: 'African passenger boarding flight at airport terminal',
+      hook: "Fly",
+      label: "Domestic & International Flights",
+      tag: "Worldwide Routes & Fares",
+      // image:"https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+      image: "/images/flying.jpg",
+      alt: "African passenger boarding flight at airport terminal",
     },
     {
-      hook: 'Rest',
-      label: 'Curated Hotel Reservations',
-      tag: 'Tailored to Your Budget',
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
-      alt: 'Relaxing luxury safari lodge and hotel in Rwanda',
+      hook: "Rest",
+      label: "Curated Hotel Reservations",
+      tag: "Tailored to Your Budget",
+      // image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+      image: "/images/rest.png",
+      alt: "Relaxing luxury safari lodge and hotel in Rwanda",
     },
   ];
 
   const handleWhatsApp = () => {
     const url = buildWhatsAppUrl(
       initialBusinessInfo.whatsappPrimary,
-      "Hello IAN'S Travel & Tours, I would like to plan a trip with you."
+      "Hello IAN'S Travel & Tours, I would like to plan a trip with you.",
     );
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -105,7 +120,9 @@ export const Hero: React.FC<HeroProps> = ({ onPlanTripClick, onSelectServiceCard
                           <h4 className="text-2xl font-black tracking-tight text-white font-heading">
                             {card.hook}
                           </h4>
-                          <span className="text-xs text-[#7EC8E3] font-medium">• IAN'S Experience</span>
+                          <span className="text-xs text-[#7EC8E3] font-medium">
+                            • IAN'S Experience
+                          </span>
                         </div>
                         <p className="text-xs font-medium text-slate-200 mt-0.5">
                           {card.label}
@@ -143,7 +160,10 @@ export const Hero: React.FC<HeroProps> = ({ onPlanTripClick, onSelectServiceCard
 
             {/* Supporting line */}
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed">
-              Flights, tours, hotels and travel assistance from Rwanda to destinations across Africa and beyond. Dedicated to personal care, reliable routing, and trustworthy service throughout your entire voyage.
+              Flights, tours, hotels and travel assistance from Rwanda to
+              destinations across Africa and beyond. Dedicated to personal care,
+              reliable routing, and trustworthy service throughout your entire
+              voyage.
             </p>
 
             {/* Mobile horizontal service strip per Specification §11 */}
@@ -159,11 +179,19 @@ export const Hero: React.FC<HeroProps> = ({ onPlanTripClick, onSelectServiceCard
                     onClick={onPlanTripClick}
                     className="relative flex-shrink-0 w-44 h-28 rounded-xl overflow-hidden shadow-sm snap-start cursor-pointer border border-slate-200"
                   >
-                    <img src={card.image} alt={card.alt} className="w-full h-full object-cover" />
+                    <img
+                      src={card.image}
+                      alt={card.alt}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B2A4A]/90 via-[#0B2A4A]/40 to-transparent" />
                     <div className="absolute bottom-2 left-2.5 right-2 text-white">
-                      <p className="text-base font-bold font-heading">{card.hook}</p>
-                      <p className="text-[10px] text-slate-200 truncate">{card.label}</p>
+                      <p className="text-base font-bold font-heading">
+                        {card.hook}
+                      </p>
+                      <p className="text-[10px] text-slate-200 truncate">
+                        {card.label}
+                      </p>
                     </div>
                   </div>
                 ))}
