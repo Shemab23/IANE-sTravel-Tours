@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { MapPin, ArrowRight, Compass, Sparkles, Check } from 'lucide-react';
-import { DestinationItem } from '../types';
+import React, { useState } from "react";
+import { MapPin, ArrowRight, Compass, Sparkles, Check } from "lucide-react";
+import { DestinationItem } from "../types";
 
 interface DestinationsSectionProps {
   destinations: DestinationItem[];
@@ -11,17 +11,20 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
   destinations,
   onRequestDestinationQuote,
 }) => {
-  const [selectedRegion, setSelectedRegion] = useState<string>('All');
+  const [selectedRegion, setSelectedRegion] = useState<string>("All");
 
-  const regions = ['All', 'Rwanda', 'East Africa', 'Dubai', 'Europe'];
+  const regions = ["All", "Rwanda", "East Africa", "Dubai", "Europe"];
 
   const filteredDestinations =
-    selectedRegion === 'All'
+    selectedRegion === "All"
       ? destinations
       : destinations.filter((d) => d.region === selectedRegion);
 
   return (
-    <section id="destinations" className="py-20 bg-white border-t border-slate-200/80">
+    <section
+      id="destinations"
+      className="py-20 bg-white border-t border-slate-200/80"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
@@ -33,7 +36,8 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
               Your next destination is waiting.
             </h2>
             <p className="text-sm sm:text-base text-slate-500 mt-2 max-w-xl">
-              Rwanda, East Africa, Dubai, Europe and global hubs — presented as personalized itineraries we curate, not rigid packages.
+              Rwanda, East Africa, Dubai, Europe and global hubs — presented as
+              personalized itineraries we curate, not rigid packages.
             </p>
           </div>
 
@@ -45,8 +49,8 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 onClick={() => setSelectedRegion(region)}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   selectedRegion === region
-                    ? 'bg-[#0B2A4A] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    ? "bg-[#0B2A4A] text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
                 }`}
               >
                 {region}
@@ -83,8 +87,12 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                 </div>
 
                 <div className="absolute bottom-3 left-4 right-4 text-white">
-                  <p className="text-xs text-[#7EC8E3] font-semibold">{dest.country}</p>
-                  <h3 className="text-lg font-bold font-heading leading-snug">{dest.name}</h3>
+                  <p className="text-xs text-[#7EC8E3] font-semibold">
+                    {dest.country}
+                  </p>
+                  <h3 className="text-lg font-bold font-heading leading-snug">
+                    {dest.name}
+                  </h3>
                 </div>
               </div>
 
@@ -104,7 +112,10 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                       Curated Highlights:
                     </span>
                     {dest.highlights.slice(0, 3).map((h, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-xs text-slate-700">
+                      <div
+                        key={i}
+                        className="flex items-center gap-1.5 text-xs text-slate-700"
+                      >
                         <Check className="w-3.5 h-3.5 text-[#3FA9DD] flex-shrink-0" />
                         <span className="truncate">{h}</span>
                       </div>
@@ -117,7 +128,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                     onClick={() => onRequestDestinationQuote(dest.name)}
                     className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-[#0B2A4A] text-[#0B2A4A] hover:text-white border border-slate-300 hover:border-[#0B2A4A] text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-xs group-hover:bg-[#0B2A4A] group-hover:text-white"
                   >
-                    <span>Inquire About {dest.name.split(' ')[0]}</span>
+                    <span>Inquire About {dest.name.split(" ")[0]}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Clock, MapPin, ArrowRight, Compass, Users, Check } from 'lucide-react';
-import { TourItem } from '../types';
+import React, { useState } from "react";
+import { Clock, MapPin, ArrowRight, Compass, Users, Check } from "lucide-react";
+import { TourItem } from "../types";
 
 interface ToursSectionProps {
   tours: TourItem[];
@@ -11,14 +11,24 @@ export const ToursSection: React.FC<ToursSectionProps> = ({
   tours,
   onPlanCustomTripClick,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const categories = ['All', 'Rwanda', 'East Africa', 'Group', 'Private', 'Family', 'Corporate'];
+  const categories = [
+    "All",
+    "Rwanda",
+    "East Africa",
+    "Group",
+    "Private",
+    "Family",
+    "Corporate",
+  ];
 
   const filteredTours =
-    selectedCategory === 'All'
+    selectedCategory === "All"
       ? tours
-      : tours.filter((t) => t.category.toLowerCase() === selectedCategory.toLowerCase());
+      : tours.filter(
+          (t) => t.category.toLowerCase() === selectedCategory.toLowerCase(),
+        );
 
   return (
     <section id="tours" className="py-20 bg-white border-t border-slate-200/80">
@@ -33,7 +43,9 @@ export const ToursSection: React.FC<ToursSectionProps> = ({
               Not every journey should look the same.
             </h2>
             <p className="text-sm sm:text-base text-slate-500 mt-2 max-w-xl">
-              Tell us what you want to experience, and we'll help shape the journey around you. Private groups, family adventures, or corporate delegates.
+              Tell us what you want to experience, and we'll help shape the
+              journey around you. Private groups, family adventures, or
+              corporate delegates.
             </p>
           </div>
 
@@ -55,8 +67,8 @@ export const ToursSection: React.FC<ToursSectionProps> = ({
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 selectedCategory === cat
-                  ? 'bg-[#556B4A] text-white shadow-sm'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? "bg-[#556B4A] text-white shadow-sm"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
               {cat}
@@ -118,7 +130,10 @@ export const ToursSection: React.FC<ToursSectionProps> = ({
                       Itinerary Highlights:
                     </span>
                     {tour.highlights.slice(0, 3).map((h, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-xs text-slate-700">
+                      <div
+                        key={i}
+                        className="flex items-center gap-1.5 text-xs text-slate-700"
+                      >
                         <Check className="w-3.5 h-3.5 text-[#556B4A] flex-shrink-0" />
                         <span className="truncate">{h}</span>
                       </div>

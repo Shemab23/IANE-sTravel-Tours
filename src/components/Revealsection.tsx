@@ -53,7 +53,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
     className={scrollMarginClassName}
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, amount: 0.25 }}
+    viewport={{ once: true, amount: "some" }}
     variants={variantsByTransition[transition]}
     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
   >
